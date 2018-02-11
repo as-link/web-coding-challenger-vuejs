@@ -1,0 +1,85 @@
+<template>
+  <div>
+    <h1>{{ title }}</h1>
+    <br>
+    <div v-if="error" v-html="message" class="alert alert-danger" role="alert"></div>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input v-model="user.name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter your name" name="">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email</label>
+          <input v-model="user.email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input v-model="user.password" type="password" name="" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="RexampleInputPassword1">Repeat Password</label>
+          <input v-model="user.c_password" type="password" name="" class="form-control" id="RexampleInputPassword1" placeholder="Repeat Password">
+        </div>
+        <button v-on:click.prevent="submitRegister" class="btn btn-primary">Register</button>
+      </form>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return{
+      title: 'Create account',
+      user:{
+        name:"",
+        email:"",
+        password:"",
+        c_password:""
+      },
+      error: 0,
+      message: ''
+    }
+  },
+  created(){
+    if(JSON.parse(localStorage.getItem('token') != null)){
+      let token = JSON.parse(localStorage.getItem('token'));
+      if(typeof token != 'undefined'){
+        //Redirect to list shops
+      }
+    }
+  },
+  methods:{
+  submitRegister:function(){
+    this.$http.post("http://www.shops.loc/api/register",{
+      name: this.user.name,
+      email: this.user.email,
+      password: this.user.password,
+      c_password: this.user.c_password
+    }).then(response => {
+         localStorage.setItem('token', JSON.stringify({
+            name: response.body.user.name,
+            token: response.body.user.token
+        }));
+        if(typeof response.body.error != "undefined"){
+          let text = '';
+          for (var key in response.body.error) {
+            text += '<p>' + response.body.error[key] + '</p>';
+          }
+          this.error = 1;
+          this.message = text;
+        }else{
+          //Redirect to list shops
+        }
+      }, response =>{
+            let text = '';
+            for (var key in response.body.error) {
+              text += '<p>' + response.body.error[key] + '</p>';
+            }
+
+            this.error = 1;
+            this.message = text;
+      });
+  }
+ }
+}
+</script>

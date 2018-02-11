@@ -10,11 +10,13 @@
 <script>
 import Home from './components/Home.vue'
 import Header from './components/Header.vue'
+import Register from './components/Register.vue'
 
 export default {
   components:{
     'home':Home,
 	'app-header':Header,
+	'user-register':Register,
   },
   data () {
     return{

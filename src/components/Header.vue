@@ -13,6 +13,9 @@
           <li class="nav-item" v-if="!is_logged">
             <router-link :to="{name: 'login'}" class="nav-link" exact>Login</router-link>
           </li>
+          <li class="nav-item" v-if="!is_logged">
+            <router-link :to="{name: 'register'}" class="nav-link" exact>Register</router-link>
+          </li>
         </ul>
       </div>
     </nav>
