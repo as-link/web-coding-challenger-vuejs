@@ -10,6 +10,9 @@
           <li class="nav-item">
             <router-link :to="{name: 'home'}" class="nav-link" exact>Home</router-link>
           </li>
+          <li class="nav-item" v-if="!is_logged">
+            <router-link :to="{name: 'login'}" class="nav-link" exact>Login</router-link>
+          </li>
         </ul>
       </div>
     </nav>
