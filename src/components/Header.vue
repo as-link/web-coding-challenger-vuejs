@@ -66,7 +66,7 @@ export default {
     logout:function(){
       let token = JSON.parse(localStorage.getItem('token'));
       //call api logout url
-        this.$http.post("http://localhost/shops-laravel/public/api/logout",{},{
+        this.$http.post("http://www.shops.loc/api/logout",{},{
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + token.token

@@ -68,7 +68,7 @@ export default {
 	//Get the use location
 	getLocation:function(){
         let token = JSON.parse(localStorage.getItem('token'));
-        this.$http.get("http://localhost/shops-laravel/public/api/get-location",{
+        this.$http.get("http://www.shops.loc/api/get-location",{
           headers: {'Accept': 'application/json',
                     'Authorization': 'Bearer ' + token.token
                   }}).then(response => {
