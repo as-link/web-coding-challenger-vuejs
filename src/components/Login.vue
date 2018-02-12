@@ -38,6 +38,7 @@ export default {
     }
   },
   created(){
+   //Redirect the user if already logged in and try to access login page
     if(JSON.parse(localStorage.getItem('token') != null)){
       let token = JSON.parse(localStorage.getItem('token'));
       if(typeof token != 'undefined'){
@@ -46,11 +47,13 @@ export default {
     }
   },
   methods:{
+	// Submit the credentials
     submitLogin:function(){
       this.$http.post("http://www.shops.loc/api/login",{
         email: this.user.email,
         password: this.user.password
       }).then(response => {
+		      //Store the token in localStorage
               localStorage.setItem('token', JSON.stringify({
                 name: response.body.user.name,
                 token: response.body.user.token

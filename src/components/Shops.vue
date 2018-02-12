@@ -63,6 +63,7 @@ export default {
       this.getListShops();
   },
   methods:{
+	//Get the list of nearby shops 
     getListShops:function(page = ''){
         let token = JSON.parse(localStorage.getItem('token'));
         let url = "";
@@ -81,6 +82,7 @@ export default {
           this.pagination = response.body.meta.last_page;
         });
     },
+	//Set an opinion (Like(1)/ Dislike(0)) for a giving shops
     setOpinion:function(op,shop_id){
       let token = JSON.parse(localStorage.getItem('token'));
       let body = {opinion: op, shop_id: shop_id};

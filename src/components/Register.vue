@@ -41,6 +41,7 @@ export default {
     }
   },
   created(){
+	//Redirect the user if already logged in and try to access register page
     if(JSON.parse(localStorage.getItem('token') != null)){
       let token = JSON.parse(localStorage.getItem('token'));
       if(typeof token != 'undefined'){
@@ -49,6 +50,7 @@ export default {
     }
   },
   methods:{
+  //Submit data for registration
   submitRegister:function(){
     this.$http.post("http://www.shops.loc/api/register",{
       name: this.user.name,
@@ -56,6 +58,8 @@ export default {
       password: this.user.password,
       c_password: this.user.c_password
     }).then(response => {
+		//User is logged in on registration success
+		//Store the token 
          localStorage.setItem('token', JSON.stringify({
             name: response.body.user.name,
             token: response.body.user.token
@@ -75,7 +79,6 @@ export default {
             for (var key in response.body.error) {
               text += '<p>' + response.body.error[key] + '</p>';
             }
-
             this.error = 1;
             this.message = text;
       });
