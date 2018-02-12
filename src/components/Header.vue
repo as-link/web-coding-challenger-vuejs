@@ -16,17 +16,39 @@
           <li class="nav-item" v-if="!is_logged">
             <router-link :to="{name: 'register'}" class="nav-link" exact>Register</router-link>
           </li>
+          <li class="nav-item" v-if="is_logged">
+            <router-link :to="{name: 'shops'}" class="nav-link" exact>Shops</router-link>
+          </li>
         </ul>
       </div>
     </nav>
 </template>
 
 <script>
+import {bus} from '../main';
 export default {
   data () {
     return{
-      title: 'shops',
+      title: 'Shops',
+      is_logged: false,
+      name:''
     }
+  },
+    beforeMount(){
+	//Set the user's name in the header if logged
+    let token = JSON.parse(localStorage.getItem('token'));
+    if(token != null && token.token.length > 0){
+      this.is_logged = true;
+      this.name = token.name;
+    }
+  },
+  created(){
+	//Listen to a login event
+    bus.$on('userLoggedIn',(data) =>{
+      this.is_logged = data;
+      let token = JSON.parse(localStorage.getItem('token'));
+      this.name = token.name;
+    });
   },
 }
 </script>
