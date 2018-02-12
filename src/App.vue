@@ -11,12 +11,14 @@
 import Home from './components/Home.vue'
 import Header from './components/Header.vue'
 import Register from './components/Register.vue'
+import Shops from './components/Shops.vue'
 
 export default {
   components:{
     'home':Home,
 	'app-header':Header,
 	'user-register':Register,
+	'shops':Shops,
   },
   data () {
     return{
