@@ -59,10 +59,29 @@ export default {
                 token: response.body.user.token
               }));
               bus.$emit('userLoggedIn',true);
+			  this.getLocation();
           }, response => {
               this.error = 1;
               this.message = response.body.error;
         });
+    },
+	//Get the use location
+	getLocation:function(){
+        let token = JSON.parse(localStorage.getItem('token'));
+        this.$http.get("http://localhost/shops-laravel/public/api/get-location",{
+          headers: {'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + token.token
+                  }}).then(response => {
+        this.lat = response.body.data.lat;
+        this.lng = response.body.data.lng;
+        if(this.lat != '' && this.lng != ''){
+		  //Redirect the user to nearby shops page if has already set his location
+          this.$router.push({ name: 'shops'});
+        }else{
+		  //Redirect the user the location page so he can set his location
+          this.$router.push({ name: 'ulocation'});
+        }
+      });
     }
   }
 }
