@@ -19,6 +19,12 @@
           <li class="nav-item" v-if="is_logged">
             <router-link :to="{name: 'shops'}" class="nav-link" exact>Shops</router-link>
           </li>
+          <li class="nav-item dropdown" v-if="is_logged">
+            <a class="nav-link dropdown-toggle" href="javascript:void()" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="fasle">{{name}}</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a v-on:click.prevent="logout()" href="javascript:void()" class="dropdown-item">Logout</a>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
@@ -50,6 +56,24 @@ export default {
       this.name = token.name;
     });
   },
+  methods:{
+    logout:function(){
+      let token = JSON.parse(localStorage.getItem('token'));
+      //call api logout url
+        this.$http.post("http://localhost/shops-laravel/public/api/logout",{},{
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token.token
+          }
+        }).then(function(data){
+        //remove token from storage
+          localStorage.removeItem('token');
+          token = null;
+          this.is_logged = false;
+          this.$router.push({ name: 'login'});
+        });
+    }
+  }
 }
 </script>
 <style scoped>
