@@ -69,9 +69,9 @@ export default {
         let url = "";
         this.page = page;
         if(this.page == ''){
-          url = "http://localhost/shops-laravel/public/api/nearby-shops";
+          url = "http://www.shops.loc/api/nearby-shops";
         }else{
-          url ="http://localhost/shops-laravel/public/api/nearby-shops?page="+this.page;
+          url ="http://www.shops.loc/api/nearby-shops?page="+this.page;
         }
         this.$http.get(url,{
           headers: {'Accept': 'application/json',
@@ -89,7 +89,7 @@ export default {
       let headers = {'Accept': 'application/json',
                      'Authorization': 'Bearer ' + token.token};
       window.scrollTo(0, 0);
-      this.$http.post("http://localhost/shops-laravel/public/api/new-opinion",body, {
+      this.$http.post("http://www.shops.loc/api/new-opinion",body, {
         headers: headers }).then(response =>{
           if(response.body.success.length){
             this.success = 1;
