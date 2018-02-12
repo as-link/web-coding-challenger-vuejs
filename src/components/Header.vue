@@ -22,6 +22,9 @@
           <li class="nav-item" v-if="is_logged">
             <router-link :to="{name: 'pshops'}" class="nav-link" exact>Preferred shops</router-link>
           </li>
+          <li class="nav-item" v-if="is_logged">
+            <router-link :to="{name: 'ulocation'}" class="nav-link" exact>My location</router-link>
+          </li>
           <li class="nav-item dropdown" v-if="is_logged">
             <a class="nav-link dropdown-toggle" href="javascript:void()" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="fasle">{{name}}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">

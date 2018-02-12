@@ -12,6 +12,8 @@ import Home from './components/Home.vue'
 import Header from './components/Header.vue'
 import Register from './components/Register.vue'
 import Shops from './components/Shops.vue'
+import PreferredShops from './components/PreferredShops.vue'
+import UserLocation from './components/UserLocation.vue'
 
 export default {
   components:{
@@ -19,6 +21,7 @@ export default {
 	'app-header':Header,
 	'user-register':Register,
 	'shops':Shops,
+	'user-Preferredshops':PreferredShops,
   },
   data () {
     return{
