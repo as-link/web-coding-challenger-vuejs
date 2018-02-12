@@ -42,7 +42,7 @@ export default {
     if(JSON.parse(localStorage.getItem('token') != null)){
       let token = JSON.parse(localStorage.getItem('token'));
       if(typeof token != 'undefined'){
-        //Redirect to list shops
+        this.$router.push({ name: 'shops'});
       }
     }
   },
