@@ -22,6 +22,7 @@ export default {
 	'user-register':Register,
 	'shops':Shops,
 	'user-Preferredshops':PreferredShops,
+	'user-Location':UserLocation,
   },
   data () {
     return{
