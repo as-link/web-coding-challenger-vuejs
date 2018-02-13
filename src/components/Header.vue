@@ -57,9 +57,11 @@ export default {
   created(){
 	//Listen to a login event
     bus.$on('userLoggedIn',(data) =>{
-      this.is_logged = data;
-      let token = JSON.parse(localStorage.getItem('token'));
-      this.name = token.name;
+		this.is_logged = data;
+		let token = JSON.parse(localStorage.getItem('token'));
+		if(token != null && token.token.length > 0){
+			this.name = token.name;
+		}
     });
   },
   methods:{
