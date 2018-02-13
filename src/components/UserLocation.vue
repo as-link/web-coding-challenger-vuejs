@@ -1,5 +1,6 @@
 <template>
   <div>
+    <doc-title :title="title"></doc-title>
     <h1>{{ title }}</h1>
     <h6>Please type your address</h6>
     <br>

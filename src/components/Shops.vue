@@ -1,5 +1,6 @@
 <template>
   <div>
+    <doc-title :title="title"></doc-title>
     <h1>{{ title }}</h1>
     <br>
       <div v-if="success" class="alert alert-success" role="alert">{{message}}

@@ -1,17 +1,21 @@
 <template>
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">Shops Web Coding Challenge</h1>
-      <p class="lead text-muted">Something short and leading about the shops and features.<span v-if="!is_logged">Please login to view the content or register if you do not have an account.</span></p>
-	  <p>
-        <router-link v-if="!is_logged" :to="{name: 'login'}" class="btn btn-primary" exact>Login</router-link>
-        <router-link v-if="!is_logged" :to="{name: 'register'}" class="btn btn-info" exact>Register</router-link>
+	<div>
+	  <doc-title :title="title"></doc-title>
+	  <section class="jumbotron text-center">
+		<div class="container">
+		  <h1 class="jumbotron-heading">Shops Web Coding Challenge</h1>
+		  <p class="lead text-muted">Something short and leading about the shops and features.<span v-if="!is_logged">Please login to view the content or register if you do not have an account.</span></p>
+		  <p>
+			<router-link v-if="!is_logged" :to="{name: 'login'}" class="btn btn-primary" exact>Login</router-link>
+			<router-link v-if="!is_logged" :to="{name: 'register'}" class="btn btn-info" exact>Register</router-link>
 
-        <router-link v-if="is_logged" :to="{name: 'shops'}" class="btn btn-primary" exact>Nearby shops</router-link>
-        <router-link v-if="is_logged" :to="{name: 'pshops'}" class="btn btn-info" exact>Preferred shops</router-link>
-      </p>
-    </div>
-  </section>
+			<router-link v-if="is_logged" :to="{name: 'shops'}" class="btn btn-primary" exact>Nearby shops</router-link>
+			<router-link v-if="is_logged" :to="{name: 'pshops'}" class="btn btn-info" exact>Preferred shops</router-link>
+		  </p>
+		</div>
+	  </section>
+
+	</div>
 </template>
 
 <script>
