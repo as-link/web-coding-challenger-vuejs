@@ -70,17 +70,7 @@ export default {
             name: response.body.user.name,
             token: response.body.user.token
         }));
-        if(typeof response.body.error != "undefined"){
-          let text = '';
-          for (var key in response.body.error) {
-            text += '<p>' + response.body.error[key] + '</p>';
-          }
-          this.error = 1;
-          this.message = text;
-		  this.loading = false;
-        }else{
-          this.$router.push({ name: 'shops'});
-        }
+         this.$router.push({ name: 'shops'});
       }, response =>{
             let text = '';
             for (var key in response.body.error) {
