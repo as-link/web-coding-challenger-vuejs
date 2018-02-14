@@ -13,7 +13,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div v-if="no_data" class="alert alert-danger" role="alert">You haven't liked any shop yet</div>
+      <div v-if="no_data" class="alert alert-warning" role="alert">You have no preferred shop!</div>
 	  <div style="text-align:center;">
 		<pulse-loader :loading="loading"></pulse-loader>
 	  </div>
