@@ -22,8 +22,11 @@
       v-on:placechanged="getAddressData">
     </vue-google-autocomplete>
     <br>
-    <p v-if="!noLocation" class="text-primary">Latitude : {{lat}}</p>
-    <p v-if="!noLocation" class="text-primary">Longitude : {{lng}}</p>
+	<div style="text-align:center;">
+		<pulse-loader :loading="loading"></pulse-loader>
+	</div>
+    <p v-if="!noLocation && !loading" class="text-primary">Latitude : {{lat}}</p>
+    <p v-if="!noLocation && !loading" class="text-primary">Longitude : {{lng}}</p>
     <button type="button" class="btn btn-success" v-on:click.prevent="setLocation()">Set my location</button>
   </div>
 </template>
@@ -41,7 +44,8 @@ export default {
       noLocation : true,
       success: 0,
       error: 0,
-      message: ''
+      message: '',
+	  loading: true,
     }
   },
   created(){
@@ -56,6 +60,7 @@ export default {
       this.lng = response.body.data.lng;
       if(this.lat != '' && this.lng != ''){
         this.noLocation = false;
+		this.loading = false;
       }
     });
   },
@@ -70,6 +75,7 @@ export default {
     },
 	//Set location
     setLocation: function(){
+	  this.loading = true;
       let token = JSON.parse(localStorage.getItem('token'));
       let headers = {'Accept': 'application/json',
                      'Authorization': 'Bearer ' + token.token};
@@ -88,6 +94,7 @@ export default {
             this.message = response.body.error;
           }
           this.noLocation = false;
+		  this.loading = false;
         });
       }else { 
 		// Update the user's location
@@ -102,6 +109,7 @@ export default {
             this.message = response.body.error;
           }
           this.noLocation = false;
+		  this.loading = false;
         });
       }
     }

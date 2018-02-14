@@ -13,8 +13,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div v-if="shops.length == 0"> Loading...</div>
-      <div class="card-deck mb-4" v-if="shops.length > 0"  v-for="i in Math.ceil(shops.length / 2)">
+	  <div style="text-align:center;">
+		<pulse-loader :loading="loading"></pulse-loader>
+	  </div>
+      <div class="card-deck mb-4" v-if="!loading"  v-for="i in Math.ceil(shops.length / 2)">
         <div class="card"  v-for="shop in shops.slice((i - 1) * 2, i * 2)">
           <img class="card-img-top" v-bind:src="shop.picture" alt="">
           <div class="card-body">
@@ -26,7 +28,7 @@
           </div>
         </div>
       </div>
-      <nav  v-if="shops.length > 0 && pagination > 1" >
+      <nav  v-if="!loading && pagination > 1" >
         <paginate
           :page-count="pagination"
           :page-range="3"
@@ -57,7 +59,8 @@ export default {
       page: '',
       error: 0,
       success: 0,
-      message: ''
+      message: '',
+	  loading: true,
     }
   },
   created(){
@@ -81,10 +84,12 @@ export default {
         }).then(response => {
           this.shops = response.body.data;
           this.pagination = response.body.meta.last_page;
+		  this.loading = false;
         });
     },
 	//Set an opinion (Like(1)/ Dislike(0)) for a giving shops
     setOpinion:function(op,shop_id){
+	  this.loading = true;
       let token = JSON.parse(localStorage.getItem('token'));
       let body = {opinion: op, shop_id: shop_id};
       let headers = {'Accept': 'application/json',

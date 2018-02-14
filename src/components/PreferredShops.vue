@@ -14,8 +14,10 @@
         </button>
       </div>
       <div v-if="no_data" class="alert alert-danger" role="alert">You haven't liked any shop yet</div>
-      <div v-if="shops.length == 0 && !no_data"> Loading...</div>
-      <div class="card-deck mb-4" v-if="shops.length > 0"  v-for="i in Math.ceil(shops.length / 2)">
+	  <div style="text-align:center;">
+		<pulse-loader :loading="loading"></pulse-loader>
+	  </div>
+      <div class="card-deck mb-4" v-if="!loading"  v-for="i in Math.ceil(shops.length / 2)">
         <div class="card" style="max-width: 50%"  v-for="shop in shops.slice((i - 1) * 2, i * 2)">
           <img class="card-img-top" v-bind:src="shop.picture" alt="">
           <div class="card-body">
@@ -26,7 +28,7 @@
           </div>
         </div>
       </div>
-      <nav  v-if="shops.length > 0 && pagination > 1" >
+      <nav  v-if="!loading && pagination > 1" >
         <paginate
           :page-count="pagination"
           :page-range="3"
@@ -58,7 +60,8 @@ export default {
       page: '',
       error: 0,
       success: 0,
-      message: ''
+      message: '',
+	  loading: true
     }
   },
   created(){
@@ -80,6 +83,7 @@ export default {
                     'Authorization': 'Bearer ' + token.token
                   }
         }).then(response => {
+		  this.loading = false;
           if(response.body.data.length == 0){
             this.no_data = true;
             this.shops = [];
@@ -91,6 +95,7 @@ export default {
     },
 	// Unlike a shop to remove it from the Preferred shops list
     unlikeShop:function(shop_id){
+	  this.loading = true;
       let token = JSON.parse(localStorage.getItem('token'));
       let url = "http://www.shops.loc/api/remove-like-"+shop_id;
       window.scrollTo(0, 0);

@@ -3,6 +3,9 @@
     <doc-title :title="title"></doc-title>
     <h1>{{ title }}</h1>
     <br>
+	  <div style="text-align:center;">
+		<pulse-loader :loading="loading"></pulse-loader>
+	  </div>
     <div v-if="error" class="alert alert-danger" role="alert">{{message}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -32,6 +35,7 @@ export default {
       title: 'Login',
       error: 0,
       message: '',
+	  loading: false,
       user:{
         email:"",
         password:"",
@@ -50,6 +54,7 @@ export default {
   methods:{
 	// Submit the credentials
     submitLogin:function(){
+	  this.loading = true;
       this.$http.post("http://www.shops.loc/api/login",{
         email: this.user.email,
         password: this.user.password
@@ -62,6 +67,7 @@ export default {
               bus.$emit('userLoggedIn',true);
 			  this.getLocation();
           }, response => {
+			  this.loading = false;
               this.error = 1;
               this.message = response.body.error;
         });

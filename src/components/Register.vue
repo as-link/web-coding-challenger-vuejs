@@ -3,6 +3,9 @@
     <doc-title :title="title"></doc-title>
     <h1>{{ title }}</h1>
     <br>
+	  <div style="text-align:center;">
+		<pulse-loader :loading="loading"></pulse-loader>
+	  </div>
     <div v-if="error" v-html="message" class="alert alert-danger" role="alert"></div>
       <form>
         <div class="form-group">
@@ -38,7 +41,8 @@ export default {
         c_password:""
       },
       error: 0,
-      message: ''
+      message: '',
+	  loading: false,
     }
   },
   created(){
@@ -53,6 +57,7 @@ export default {
   methods:{
   //Submit data for registration
   submitRegister:function(){
+	this.loading = true;
     this.$http.post("http://www.shops.loc/api/register",{
       name: this.user.name,
       email: this.user.email,
@@ -72,6 +77,7 @@ export default {
           }
           this.error = 1;
           this.message = text;
+		  this.loading = false;
         }else{
           this.$router.push({ name: 'shops'});
         }
@@ -80,6 +86,7 @@ export default {
             for (var key in response.body.error) {
               text += '<p>' + response.body.error[key] + '</p>';
             }
+			this.loading = false;
             this.error = 1;
             this.message = text;
       });
