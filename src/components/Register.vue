@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import {bus} from '../main';
 export default {
   data () {
     return{
@@ -70,7 +71,8 @@ export default {
             name: response.body.user.name,
             token: response.body.user.token
         }));
-         this.$router.push({ name: 'shops'});
+		bus.$emit('userLoggedIn',true);
+        this.$router.push({ name: 'shops'});
       }, response =>{
             let text = '';
             for (var key in response.body.error) {
