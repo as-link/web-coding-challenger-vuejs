@@ -3,13 +3,13 @@
     <doc-title :title="title"></doc-title>
     <h1>{{ title }}</h1>
     <br>
-      <div v-if="success && !no_data" class="alert alert-success" role="alert">{{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  <div v-if="success" class="alert alert-success" role="alert">{{message}}
+        <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div v-if="error" class="alert alert-danger" role="alert">{{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -114,7 +114,11 @@ export default {
             this.message = response.body.error;
           }
       });
-    }
+    },
+	hideMessage:function(){
+		this.error = 0;
+		this.success = 0;
+	}
   }
 }
 </script>

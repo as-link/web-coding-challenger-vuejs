@@ -4,16 +4,16 @@
     <h1>{{ title }}</h1>
     <h6>Please type your address</h6>
     <br>
-    <div class="alert alert-success" role="alert" v-if="success">{{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  <div v-if="success" class="alert alert-success" role="alert">{{message}}
+        <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
-    </div>
-    <div class="alert alert-danger" role="alert" v-if="error">{{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      </div>
+      <div v-if="error" class="alert alert-danger" role="alert">{{message}}
+        <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
-    </div>
+      </div>
     <vue-google-autocomplete
       ref="address"
       id="map"
@@ -60,8 +60,8 @@ export default {
       this.lng = response.body.data.lng;
       if(this.lat != '' && this.lng != ''){
         this.noLocation = false;
-		this.loading = false;
       }
+	  this.loading = false;
     });
   },
   mounted() {
@@ -112,7 +112,11 @@ export default {
 		  this.loading = false;
         });
       }
-    }
+    },
+	hideMessage:function(){
+		this.error = 0;
+		this.success = 0;
+	}
   }
 }
 </script>
