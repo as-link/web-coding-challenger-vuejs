@@ -33,7 +33,7 @@
           :page-count="pagination"
           :page-range="3"
           :margin-pages="2"
-          :click-handler="getListShops"
+          :click-handler="goToPage"
           :prev-text="'Prev'"
           :next-text="'Next'"
           :container-class="'pagination'"
@@ -69,11 +69,11 @@ export default {
   },
   methods:{
 	//Get the list of nearby shops 
-    getListShops:function(page = ''){
+    getListShops:function(){
 		window.scrollTo(0, 0);
         let token = JSON.parse(localStorage.getItem('token'));
         let url = "";
-        this.page = page;
+        this.page = this.$route.query.page;
         if(this.page == ''){
           url = "http://www.shops.loc/api/nearby-shops";
 		  this.page_title = '';
@@ -118,6 +118,9 @@ export default {
 	hideMessage:function(){
 		this.error = 0;
 		this.success = 0;
+	},
+	goToPage:function(page){
+		this.$router.push({ name: 'shops', query: { p: page }})
 	}
   }
 }
