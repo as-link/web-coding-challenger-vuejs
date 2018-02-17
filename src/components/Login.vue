@@ -6,8 +6,8 @@
 	  <div style="text-align:center;">
 		<pulse-loader :loading="loading"></pulse-loader>
 	  </div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{message}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	<div v-if="error" class="alert alert-danger" role="alert">{{message}}
+        <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -89,7 +89,11 @@ export default {
           this.$router.push({ name: 'ulocation'});
         }
       });
-    }
+    },
+	hideMessage:function(){
+		this.error = 0;
+		this.success = 0;
+	}
   }
 }
 </script>
