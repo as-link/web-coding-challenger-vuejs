@@ -3,12 +3,12 @@
     <doc-title :title="title"></doc-title>
     <h1>{{ title }}</h1>
     <br>
-	  <div v-if="success" class="alert alert-success" role="alert">{{message}}
+	  <div v-if="success && !loading" class="alert alert-success" role="alert">{{message}}
         <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div v-if="error" class="alert alert-danger" role="alert">{{message}}
+      <div v-if="error && !loading" class="alert alert-danger" role="alert">{{message}}
         <button type="button" class="close" v-on:click.prevent="hideMessage()">
           <span aria-hidden="true">&times;</span>
         </button>
