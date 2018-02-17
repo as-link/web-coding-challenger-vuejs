@@ -22,7 +22,22 @@ const router = new VueRouter({
   routes: Routes,
   mode: 'history'
 });
-
+//Navigation Guards
+router.beforeEach((to, from, next) => {
+  //Allow access to home, login and register
+  if (to.name == 'home' || to.name == 'login' || to.name == 'register') {
+	 next();
+  }else{
+	let token = JSON.parse(localStorage.getItem('token'));
+	if(token != null && token.token.length > 0){
+		//Allow access to other routes when user is logged in
+		next();
+	}else{
+		//Redirect to login page if user is not authenticated
+		next({ path: '/login' })
+	}
+  }
+});
 new Vue({
   el: '#app',
   render: h => h(App),
