@@ -33,7 +33,7 @@
           :page-count="pagination"
           :page-range="3"
           :margin-pages="2"
-          :click-handler="getListPreferredShops"
+          :click-handler="goToPage"
           :prev-text="'Prev'"
           :next-text="'Next'"
           :container-class="'pagination'"
@@ -70,11 +70,11 @@ export default {
   },
   methods:{
 	//Get the paginated list of the shops that the user liked
-    getListPreferredShops:function(page = ''){
+    getListPreferredShops:function(){
         let token = JSON.parse(localStorage.getItem('token'));
         let url = "";
 		window.scrollTo(0, 0);
-        this.page = page;
+        this.page = this.$route.query.page;
         if(this.page == ''){
           url = "http://www.shops.loc/api/preffered-shops";
 		  this.page_title = '';
@@ -126,6 +126,9 @@ export default {
 	hideMessage:function(){
 		this.error = 0;
 		this.success = 0;
+	},
+	goToPage:function(page){
+		this.$router.push({ name: 'pshops', query: { p: page }})
 	}
   }
 }
