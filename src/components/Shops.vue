@@ -1,7 +1,7 @@
 <template>
   <div>
     <doc-title :title="title"></doc-title>
-    <h1>{{ title }}</h1>
+    <h1>{{ title }} <span class="h1_page">{{page_title}}</span></h1>
     <br>
 	  <div v-if="success && !loading" class="alert alert-success" role="alert">{{message}}
         <button type="button" class="close" v-on:click.prevent="hideMessage()">
@@ -61,6 +61,7 @@ export default {
       success: 0,
       message: '',
 	  loading: true,
+	  page_title: ''
     }
   },
   created(){
@@ -69,13 +70,20 @@ export default {
   methods:{
 	//Get the list of nearby shops 
     getListShops:function(page = ''){
+		window.scrollTo(0, 0);
         let token = JSON.parse(localStorage.getItem('token'));
         let url = "";
         this.page = page;
         if(this.page == ''){
           url = "http://www.shops.loc/api/nearby-shops";
+		  this.page_title = '';
         }else{
           url ="http://www.shops.loc/api/nearby-shops?page="+this.page;
+		  if(this.page > 1){
+			this.page_title = ' - page '+this.page;
+		  }else{
+			this.page_title = '';
+		  }
         }
         this.$http.get(url,{
           headers: {'Accept': 'application/json',
@@ -114,3 +122,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+h1 span.h1_page{
+	font-size:28px;
+	color:#aaa;
+}
+</style>
