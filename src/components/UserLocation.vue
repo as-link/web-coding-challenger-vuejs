@@ -95,7 +95,11 @@ export default {
           }
           this.noLocation = false;
 		  this.loading = false;
-        });
+        }, response =>{
+            this.error = 1;
+            this.message = response.body.error;
+			this.loading = false;
+		});
       }else { 
 		// Update the user's location
         this.$http.put("http://www.shops.loc/api/set-location",
