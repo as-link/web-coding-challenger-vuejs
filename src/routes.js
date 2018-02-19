@@ -10,6 +10,6 @@ export default [
   {path: '/login', component: Login, name: 'login'},
   {path: '/register', component: Register, name: 'register'},
   {path: '/shops/:page?', component: Shops, name: 'shops'},
-  {path: '/preferred-shop', component: PreferredShops, name: 'pshops'},
+  {path: '/preferred-shop/:page?', component: PreferredShops, name: 'pshops'},
   {path: '/set-location', component: UserLocation, name: 'ulocation'}
 ]

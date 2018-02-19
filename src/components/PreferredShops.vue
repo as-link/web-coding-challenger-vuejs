@@ -43,6 +43,7 @@
           :next-class="'page-item'"
           :prev-link-class="'page-link'"
           :next-link-class="'page-link'"
+		  ref="currentP"
           >
         </paginate>
       </nav>
@@ -57,7 +58,7 @@ export default {
       shops:[],
       pagination:'',
       no_data: false,
-      page: '',
+      page: this.$route.params.page ? this.$route.query.page : 1,
       error: 0,
       success: 0,
       message: '',
@@ -67,6 +68,14 @@ export default {
   },
   created(){
     this.getListPreferredShops();
+	 window.onpopstate =  () => {
+	   this.$router.go({ path: document.location.pathname });
+	 }
+  },
+  updated(){
+	  if(this.$refs.currentP){
+		this.$refs.currentP.selected = this.page - 1;
+	  }
   },
   methods:{
 	//Get the paginated list of the shops that the user liked
@@ -74,7 +83,7 @@ export default {
         let token = JSON.parse(localStorage.getItem('token'));
         let url = "";
 		window.scrollTo(0, 0);
-        this.page = this.$route.query.page;
+        this.page = this.$route.params.page ? this.$route.params.page : 1;
         if(this.page == ''){
           url = "http://www.shops.loc/api/preffered-shops";
 		  this.page_title = '';
@@ -128,7 +137,9 @@ export default {
 		this.success = 0;
 	},
 	goToPage:function(page){
-		this.$router.push({ name: 'pshops', query: { p: page }})
+		this.$router.push({ name: 'pshops', params: { page: page }});
+		this.getListPreferredShops();
+		this.$refs.currentP.selected = page - 1;
 	}
   }
 }
