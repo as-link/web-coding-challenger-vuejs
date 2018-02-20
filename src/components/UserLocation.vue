@@ -75,6 +75,7 @@ export default {
     },
 	//Set location
     setLocation: function(){
+	  this.error = 0;
 	  this.loading = true;
       let token = JSON.parse(localStorage.getItem('token'));
       let headers = {'Accept': 'application/json',
