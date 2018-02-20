@@ -54,6 +54,7 @@ export default {
   methods:{
 	// Submit the credentials
     submitLogin:function(){
+	  this.error = 0;
 	  this.loading = true;
       this.$http.post("http://www.shops.loc/api/login",{
         email: this.user.email,
