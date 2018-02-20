@@ -58,6 +58,7 @@ export default {
   methods:{
   //Submit data for registration
   submitRegister:function(){
+	this.error = 0;
 	this.loading = true;
     this.$http.post("http://www.shops.loc/api/register",{
       name: this.user.name,
