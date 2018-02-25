@@ -1,18 +1,17 @@
-# shops
+# web-coding-challenger-vuejs
 
-> A Vue.js project
+**Download the files directly using the following command.**<br />
+	`git clone https://github.com/as-link/web-coding-challenger-vuejs.git`<br />
 
-## Build Setup
+**Go to the project's directory using**<br />
+	`cd PROJECTDIRECTORYNAME/`<br />
 
-``` bash
-# install dependencies
-npm install
+**Install the dependencies**<br />
+	`npm install`<br />
 
-# serve with hot reload at localhost:8080
-npm run dev
+**Replace google map api key YOURAPIKEY with the actual key in index.html**<br />
 
-# build for production with minification
-npm run build
-```
+`<script src="https://maps.googleapis.com/maps/api/js?key=YOURAPIKEY&libraries=places"></script>`<br />
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+**Launch the server**<br />
+`npm run dev`<br />
