@@ -15,3 +15,5 @@
 
 **Launch the server**<br />
 `$ npm run dev`<br />
+
+**New tab should appear in the browser pointing to http://localhost:8080/**
