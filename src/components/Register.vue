@@ -73,7 +73,7 @@ export default {
             token: response.body.user.token
         }));
 		bus.$emit('userLoggedIn',true);
-        this.$router.push({ name: 'shops'});
+        this.$router.push({ name: 'ulocation'});
       }, response =>{
             let text = '';
             for (var key in response.body.error) {
